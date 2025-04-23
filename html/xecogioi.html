@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảo Hiểm Xe Cơ Giới</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <script src="../js/jquery-3.7.1.min.js"></script>
+  <script src="../js/bootstrap.bundle.js"></script>
+  <link rel="stylesheet" href="../css/demo.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="../js/login.js" defer></script>
+  <script src="../js/kiemtradangnhap.js" defer></script>
+  <link rel="stylesheet" href="../css/sanpham.css">
+  <script src="../js/xecogioi.js"></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e67e22;">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="bi bi-shield-lock-fill me-2"></i>Bảo Hiểm IUH</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="main.html#gioithieu"><i
+                class="bi bi-info-circle me-1"></i>Giới thiệu</a></li>
+          <li class="nav-item"><a class="nav-link active" href="main.html#dichvu"><i
+                class="bi bi-briefcase me-1"></i>Dịch vụ</a></li>
+          <li class="nav-item" id="navRegister">
+            <a class="nav-link active" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</a>
+          </li>
+          <li class="nav-item" id="navLogin">
+            <a class="nav-link active" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập</a>
+          </li>
+          <li class="nav-item d-none" id="navUser">
+            <span class="nav-link fw-bold text-white" id="userEmail"></span>
+          </li>
+          <li class="nav-item d-none" id="navLogout">
+            <a class="nav-link text-warning" href="#" onclick="logoutUser()">Đăng xuất</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Title -->
+  <div class="text-center mb-5">
+    <h1 class="title-underline">Tôi đang tìm kiếm Bảo hiểm Xe Cơ Giới</h1>
+    <p class="mt-4">Vui lòng chọn sản phẩm bên dưới để tìm hiểu thêm.</p>
+  </div>
+
+  <!-- Insurance Cards -->
+  <div class="row g-4">
+    <!-- Card 1: Bảo hiểm Ô tô Bắt buộc -->
+    <div class="col-md-3">
+      <div class="card" onclick="openInsuranceModal('Bảo hiểm Ô tô Bắt buộc')">
+        <div class="card-img-container">
+          <img src="../img/oto1.jpg" alt="Bảo hiểm Ô tô Bắt buộc" class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bảo hiểm Ô tô Bắt buộc</h5>
+          <p class="card-text">Bảo hiểm bắt buộc cho phương tiện ô tô theo quy định pháp luật.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Bảo hiểm Xe máy Bắt buộc -->
+    <div class="col-md-3">
+      <div class="card" onclick="openInsuranceModal('Bảo hiểm Xe máy Bắt buộc')">
+        <div class="card-img-container">
+          <img src="../img/xemay2.jpg" alt="Bảo hiểm Xe máy Bắt buộc" class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bảo hiểm Xe máy Bắt buộc</h5>
+          <p class="card-text">Bảo hiểm bắt buộc cho phương tiện xe máy khi tham gia giao thông.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Bảo hiểm Ô tô Tự nguyện -->
+    <div class="col-md-3">
+      <div class="card" onclick="openInsuranceModal('Bảo hiểm Ô tô Tự nguyện')">
+        <div class="card-img-container">
+          <img src="../img/oto2.jpg" alt="Bảo hiểm Ô tô Tự nguyện" class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bảo hiểm Ô tô Tự nguyện</h5>
+          <p class="card-text">Bảo hiểm tự nguyện cho phương tiện ô tô để bảo vệ tài sản của bạn.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Bảo hiểm Xe máy Tự nguyện -->
+    <div class="col-md-3">
+      <div class="card" onclick="openInsuranceModal('Bảo hiểm Xe máy Tự nguyện')">
+        <div class="card-img-container">
+          <img src="../img/xemay1.jpg" alt="Bảo hiểm Xe máy Tự nguyện" class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bảo hiểm Xe máy Tự nguyện</h5>
+          <p class="card-text">Bảo hiểm tự nguyện cho xe máy với nhiều quyền lợi và bảo vệ tài sản.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Bảo hiểm Xe -->
+  <div class="modal fade" id="insuranceModal" tabindex="-1" aria-labelledby="insuranceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="insuranceModalLabel">Chọn thông tin phương tiện</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="insuranceForm">
+            <input type="hidden" id="insuranceType">
+            <div class="mb-3">
+              <label class="form-label" for="brandSelect">Hãng xe</label>
+              <select class="form-select" id="brandSelect" required>
+                <option value="">Chọn hãng xe</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Honda">Honda</option>
+                <option value="Hyundai">Hyundai</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="modelSelect">Dòng xe</label>
+              <select class="form-select" id="modelSelect" required>
+                <option value="">Chọn dòng xe</option>
+                <option value="Vios">Vios</option>
+                <option value="Winner">Winner</option>
+                <option value="Accent">Accent</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="yearSelect">Năm sản xuất</label>
+              <select class="form-select" id="yearSelect" required>
+                <option value="">Chọn năm</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calculatePrice()">Tính giá bảo hiểm</button>
+          </form>
+          <div id="priceDisplay" class="mt-3 text-success"></div>
+          <button id="purchaseButton" class="btn btn-success mt-3" style="display:none;"
+            onclick="confirmPurchase()">Mua</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Liên hệ</h5>
+          <p>Email: contact@baohiemiuh.com</p>
+          <p>Địa chỉ: 123, Đường ABC, TP.HCM, Việt Nam</p>
+          <p>Điện thoại: 1900-1234</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Thông tin</h5>
+          <ul class="list-unstyled">
+            <li><a href="main.html#gioithieu" class="text-white">Giới thiệu</a></li>
+            <li><a href="main.html#dichvu" class="text-white">Dịch vụ</a></li>
+            <li><a href="dieukhoan.html" class="text-white">Điều khoản</a></li>
+            <li><a href="baomat.html" class="text-white">Chính sách bảo mật</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Theo dõi chúng tôi</h5>
+          <ul class="list-unstyled">
+            <li><a href="https://www.facebook.com/LibertyInsuranceVietnam/" class="text-white"><i
+                  class="bi bi-facebook"></i> Facebook</a></li>
+            <li><a href="https://x.com/Ins47944Liberty" class="text-white"><i class="bi bi-twitter"></i> Twitter</a>
+            </li>
+            <li><a href="https://www.linkedin.com/company/liberty-insurance-limited" class="text-white"><i
+                  class="bi bi-instagram"></i> Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Modal đăng ký -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Đăng ký</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="registerName" class="form-label">Tên</label>
+              <input type="text" class="form-control" id="registerName" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="registerEmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerPhone" class="form-label">Số điện thoại</label>
+              <input type="text" class="form-control" id="registerPhone" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerProduct" class="form-label">Sản phẩm bảo hiểm</label>
+              <select class="form-select" id="registerProduct" required>
+                <option value="">Chọn sản phẩm</option>
+                <option value="Bảo hiểm xe cơ giới">Bảo hiểm 1 năm</option>
+                <option value="Bảo hiểm du lịch">Bảo hiểm 10 năm</option>
+                <option value="Bảo hiểm sức khỏe">Bảo hiểm 20 năm</option>
+                <option value="Bảo hiểm nhà cửa">Bảo hiểm 30 năm</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Mật khẩu</label>
+              <input type="password" class="form-control" id="registerPassword" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+              <input type="password" class="form-control" id="registerConfirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal đăng nhập -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="loginEmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Mật khẩu</label>
+              <input type="password" class="form-control" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
