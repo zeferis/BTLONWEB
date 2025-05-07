@@ -1,16 +1,9 @@
 // Function to open the insurance modal and set insurance type
 function openInsuranceModal(insuranceType) {
-  // Reset form fields
   document.getElementById("insuranceForm").reset();
-
-  // Set the insurance type
   document.getElementById("insuranceType").value = insuranceType;
-
-  // Hide the price display and button initially
   document.getElementById("priceDisplay").innerHTML = "";
   document.getElementById("purchaseButton").style.display = 'none';
-
-  // Show the modal
   $('#insuranceModal').modal('show');
 }
 
@@ -21,36 +14,57 @@ function calculatePrice() {
   var year = document.getElementById("yearSelect").value;
   var insuranceType = document.getElementById("insuranceType").value;
 
-  // Reset the price if any input is missing
   if (!brand || !model || !year) {
     document.getElementById("priceDisplay").innerHTML = "";
-    document.getElementById("purchaseButton").style.display = 'none'; // Hide 'Mua' button
+    document.getElementById("purchaseButton").style.display = 'none';
     return;
   }
 
-  var price = 5000000; // Default price
-  if (insuranceType === "Bảo hiểm Ô tô Bắt buộc" || insuranceType === "Bảo hiểm Bắt buộc Xe máy") {
-    price = 4000000; // Price for compulsory insurance
+  var price = 5000000;
+  if (insuranceType === "Bảo hiểm Ô tô Bắt buộc" || insuranceType === "Bảo hiểm Xe máy Bắt buộc") {
+    price = 4000000;
   }
 
-  // Display the price and show the purchase button
   document.getElementById("priceDisplay").innerHTML = "Giá bảo hiểm: " + price.toLocaleString() + " đồng";
-  document.getElementById("purchaseButton").style.display = 'inline'; // Show 'Mua' button
-  document.getElementById("priceDisplay").setAttribute("data-price", price); // Store price for later use
+  document.getElementById("purchaseButton").style.display = 'inline';
+  document.getElementById("priceDisplay").setAttribute("data-price", price);
 }
 
-// Function to confirm the purchase of the insurance
+// Function to confirm the purchase of the insurance and save to localStorage
 function confirmPurchase() {
-  var price = document.getElementById("priceDisplay").getAttribute("data-price");
+  var brand = document.getElementById("brandSelect").value;
+  var model = document.getElementById("modelSelect").value;
+  var year = document.getElementById("yearSelect").value;
   var insuranceType = document.getElementById("insuranceType").value;
+  var price = parseInt(document.getElementById("priceDisplay").getAttribute("data-price"));
+
   var confirmation = confirm("Bạn chắc chắn muốn mua bảo hiểm " + insuranceType + " với giá " + price.toLocaleString() + " đồng?");
   if (confirmation) {
     alert("Cảm ơn bạn đã mua bảo hiểm " + insuranceType + "!");
-    $('#insuranceModal').modal('hide'); // Close the modal
+
+    // Lưu vào localStorage
+    var purchase = {
+      brand: brand,
+      model: model,
+      year: year,
+      insuranceType: insuranceType,
+      price: price,
+      date: new Date().toLocaleString()
+    };
+
+    var purchases = JSON.parse(localStorage.getItem("vehiclePurchases")) || [];
+    purchases.push(purchase);
+    localStorage.setItem("vehiclePurchases", JSON.stringify(purchases));
+
+    // Reset UI
+    $('#insuranceModal').modal('hide');
+    document.getElementById("insuranceForm").reset();
+    document.getElementById("priceDisplay").innerHTML = "";
+    document.getElementById("purchaseButton").style.display = 'none';
   }
 }
 
-// Specific actions for each image (insurance type)
+// Specific actions for each insurance type
 function handleCarCompulsoryInsurance() {
   openInsuranceModal("Bảo hiểm Ô tô Bắt buộc");
 }
